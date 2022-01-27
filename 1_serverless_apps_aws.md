@@ -101,5 +101,14 @@ Core Application Components
 - Infrastructure
     - AWS CDK leveraging TypeScript
 
+Preparing Your Computer for This Path
+- Reviewing the prerequisites that need to be installed
+- Installing the AWS SAM and CDK
 
+Install LTS(Long Term Support) version.
 
+Check versions with 'node -v' and 'npm -v' and 'npm install aws-cdk -g'. Check version with 'cdk --version'.
+
+Install SAM(Serverless Application Model) from https://aws.amazon.com/tr/serverless/sam/, install prerequisites AWS Command Line Interface from https://aws.amazon.com/tr/cli/ and Docker from https://docs.docker.com/get-docker/.
+
+Check 'aws --version' and 'docker -v'. Install SAM and check with 'sam --version'.
