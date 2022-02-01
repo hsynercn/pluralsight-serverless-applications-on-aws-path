@@ -16,4 +16,85 @@ Serverless Hosting Needs
 
 Uploading a React App to Amazon S3
 
+Create a React project with 'npx create-react-app sample-react-app' and install 'npm i react-router-dom'.
+
+Add a simple router to App.js.
+
+```js
+import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom"
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/page1">Page 1</Link></li>
+          <li><Link to="/page2">Page 2</Link></li>
+        </ul>
+        <Routes>
+          <Route path="/page1">
+          </Route>
+          <Route path="/page2">
+          </Route>
+          <Route path="/">
+          </Route>
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+export default App;
+
+```
+
+Go to AWS console' go to S3 and create a bucket and upload all build folder, can use drag and drop interface to upload files and folders.
+
+Hosting a React App to Amazon S3
+
+We uploaded files to bucket. We need to configure bucket. 
+
+1. Go to bucket properties.
+2. Enable static website hosting.
+3. Set index document an index.html.
+4. We can see a new URL at the bottom of bucket. We can't access this URL.
+5. Go to permissions of bucket disable block all public access. Still we can't access, we need to give access.
+6. Go to objects of bucket, go to index.html permissions, enable ACL, enable Read for Everyone(public access).
+7. When we check the bucket URL we can see the page but, we can't access JS resources.
+8. Go to bucket permissions, add bucket policy below JSON.
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid":"EnablePublicAccess",
+      "Effect":"Allow",
+      "Principal": "*",
+      "Action":["s3:GetObject"],
+      "Resource":["arn:aws:s3:::ps-serverless-test-hosting-hce/*"]
+    }
+  ]
+}
+```
+After these steps we should see bucket as "Publicly accessible" and Permission overview - Access as Public.
+
+Also, we can set index.html as our Error document.
+
+Amazon S3 Hosting Performance
+- Evaluating hosting performance
+- Enabling cache headers for static assets in Amazon S3
+- Reviewing compression capabilities
+
+We can use https://pagespeed.web.dev/ to analyze site performance. We can get optimization points from this site like enabling text compression or caching options.
+
+Likewise, we can go to static folder and select JS files. Edit metadata of these files. Add metadata with Type "System defined", Key "Cache-Control", value "max-age=31536000,public".
+
+
 
