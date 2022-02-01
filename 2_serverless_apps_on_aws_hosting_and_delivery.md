@@ -96,5 +96,30 @@ We can use https://pagespeed.web.dev/ to analyze site performance. We can get op
 
 Likewise, we can go to static folder and select JS files. Edit metadata of these files. Add metadata with Type "System defined", Key "Cache-Control", value "max-age=31536000,public".
 
+Configuring Cache Headers Using the AWS CLI
 
+Configuring Cache Control for JS/CSS Files (1 Year)
+```
+aws s3 cp /
+  s3://ps-serverless-test-hosting-hce/ s3://ps-serverless-test-hosting-hce/ \
+  -- exclude '*' \
+  --include '*.css' --include '*.js' \
+  --cache-control 'max-age=31104000, public' \
+  --recursive \
+  --metadata-directive REPLACE --acl public-read
+```
 
+Configuring Cache Control for Images (1 Year)
+```
+aws s3 cp /
+  s3://ps-serverless-test-hosting-hce/ s3://ps-serverless-test-hosting-hce/ \
+  -- exclude '*' \
+  --include '*.jpg' --include '*.png' --include '*.gif' \
+  --cache-control 'max-age=31104000, public' \
+  --recursive \
+  --metadata-directive REPLACE --acl public-read
+```
+
+We didn't solve text compression for now, we are going to solve it with Amazon CloudFront.
+
+## 2.2. Utilizing Amazon CloudFront
