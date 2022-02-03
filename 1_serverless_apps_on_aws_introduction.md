@@ -37,27 +37,27 @@ Approaching Core Concepts
 
 AWS Serverless Services
 
-Compute Services
+**Compute Services**
 - AWS Lambda
 - AWS Fargate(not included in tutorial)
 
-App Orchestration Services
+**App Orchestration Services**
 - Step Functions
 - EventBridge
 - SQS, Simple Queue Service
 - SNS, Simple Notification Service
 
-API Services
+**API Services**
 - API Gateway
 - AppSync(GraphQL)(not included in tutorial)
 
-Data Services
+**Data Services**
 - S3
 - DynamoDB
 - Aurora Serverless(relational db, not included)
 - RDS Proxy(relational db, not included)
 
-Observability Services
+**Observability Services**
 - CloudWatch
 - X-Ray
 
@@ -73,9 +73,11 @@ Third-Party Serverless Tools
 
 AWS Serverless Deployment Tools
 - CloudFormation
+    - AWS CloudFormation is an AWS service that uses template files to automate the setup of AWS resources
     - You can describe the infrastructure
 - Serverless Application Model(SAM)
     - It is similar to CloudFormation
+    - It is simplified, provides local development capabilities
 - Cloud Development Kit(CDK)
     - Why Use the CDK for Serverless: enables you to write programmatic code for your infrastructure.
     - Generates CloudFormation templates based on your code.
@@ -91,6 +93,7 @@ Application Functionality
 - Web-based interface
 - Upload and process PDF documents
 - Secure role-based access
+- Scale to the entire company
 - Implemented with Continuous Delivery
 
 Core Application Components
@@ -99,8 +102,8 @@ Core Application Components
 - Backend
     - Serverless Microservices built in JavaScript
 - Infrastructure
-    - AWS CDK leveraging TypeScript
-
+    - We are going to use AWS CDK and leverage TypeScript properties
+    
 Preparing Your Computer for This Path
 - Reviewing the prerequisites that need to be installed
 - Installing the AWS SAM and CDK
