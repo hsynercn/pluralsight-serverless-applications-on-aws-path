@@ -2,6 +2,12 @@
 
 ## 2.1. Hosting Web Applications with Amazon S3
 
+First core concept, hosting.
+
+Steps:
+- Learning
+- Implementing
+
 Understanding Hosting Needs
 
 Serverless Web Delivery
