@@ -128,3 +128,40 @@ aws s3 cp /
 We didn't solve text compression for now, we are going to solve it with Amazon CloudFront.
 
 ## 2.2. Utilizing Amazon CloudFront
+
+Amazon CloudFront Overview
+
+S3 Hosting Areas of Improvement
+- Global latency
+- Content compression(without additional work)
+- Origin caching
+
+**Amazon CloudFront** is a fast content delivery network (CDN) service that securely delivers data, videos, applications, and APIs to customers globally with low latency, (and) high transfer speeds.
+
+When we serve the content directly from S3 bucket long distance user's request travels the public internet, if we serve with CloudFront user request goes to the closest edge location and edge locations makes a request from the Amazon network to specific bucket. Edge locations cache the S3 resources.
+
+**CloudFront Terms**
+- Distribution
+- Origin
+- Behavior
+- Cache Hit and Cache Miss
+- Invalidation
+
+**Creating a CloudFront Distribution**
+- Creating a new S3 bucket to use with CloudFront
+- Launching and configuring a new CloudFront distribution
+
+Steps:
+1. Go to AWS console S3
+2. Create a new bucket, like 'ps-serverless-test-cloudfront-hosting-hce' on us-east-1
+3. Upload project files again.
+4. Go to AWS console CloudFront.
+5. Create distribution.
+  - Use bucket selection for 'Origin domain'.
+  - Enable 'Restrict Bucket Access', probably in recent configs it maps to 'Yes use OAI'. We are not making S3 files publicly accessible.
+  - Create Origin access identity, create a specific identity with bucket.
+  - Check 'Yes, Update Bucket Policy'.
+  - Check viewer protocol policy as 'redirect HTTP to HTTPS'.
+  - Enable 'Compress Objects Automatically'.
+  - Set 'Default Root Object' as index.html
+6. Wait for distribution to complete. 
