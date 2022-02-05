@@ -22,7 +22,7 @@ Serverless Hosting Needs
 
 Uploading a React App to Amazon S3
 
-Create a React project with 'npx create-react-app sample-react-app' and install 'npm i react-router-dom'.
+Create a React project with '**npx create-react-app sample-react-app**' and install '**npm i react-router-dom**'.
 
 Add a simple router to App.js.
 
@@ -37,7 +37,6 @@ import {
 
 function App() {
   return (
-    <Router>
       <div className="App">
         <ul>
           <li><Link to="/">Home</Link></li>
@@ -93,7 +92,7 @@ After these steps we should see bucket as "Publicly accessible" and Permission o
 
 Also, we can set index.html as our Error document.
 
-Amazon S3 Hosting Performance
+**Amazon S3 Hosting Performance**
 - Evaluating hosting performance
 - Enabling cache headers for static assets in Amazon S3
 - Reviewing compression capabilities
