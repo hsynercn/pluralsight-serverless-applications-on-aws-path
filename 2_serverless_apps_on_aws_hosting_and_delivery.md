@@ -164,4 +164,18 @@ Steps:
   - Check viewer protocol policy as 'redirect HTTP to HTTPS'.
   - Enable 'Compress Objects Automatically'.
   - Set 'Default Root Object' as index.html
-6. Wait for distribution to complete. 
+6. Wait for distribution to complete.
+
+**Configuring and Invalidating CloudFront**
+
+Demo:
+- Verify the CloudFront distribution
+- Inspect the S3 bucket policy
+- Configuring routes to work with CloudFront
+- Invalidating a CloudFront distribution
+
+When we check the deployed distribution we can see the React app page on 'Distribution domain name' with HTTPS of course.
+
+We can add error page from CloudFront distribution 'Error Pages', create a custom error response for HTTP Error Code- 403: Forbidden redirect it to Response Page Path: /index.html, HTTP Response Code: 200: OK.
+
+We can manually invalidate cached resources, we can create an Invalidation for everything with '/*' expression.
