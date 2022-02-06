@@ -168,6 +168,98 @@ export class ApplicationStack extends cdk.Stack {
 }
 ```
 
-Finally, run again **'npx cdk deploy'**. After UPDATE_COMPLETE we need to see three new storage under Resources.  
+Finally, run again **'npx cdk deploy'**. After UPDATE_COMPLETE we need to see three new storage under Resources.
+
+Deploying a CloudFront Distribution
+
+**Demo**
+- Create a CloudFront distribution using the CDK
+- Configuring a CloudFront distribution for a single-page web app
+
+We need to add CloudFront with s3 bucket. We pass props.hostingBucket with props parameter.
+
+```ts
+import * as cdk from '@aws-cdk/core';
+import * as s3 from '@aws-cdk/aws-s3';
+import * as s3Deploy from '@aws-cdk/aws-s3-deployment';
+import * as cloudfront from '@aws-cdk/aws-cloudfront';
+import { execSync } from 'child_process';
+import * as path from 'path';
+
+interface WebAppProps {
+    hostingBucket: s3.IBucket;
+}
+
+export class WebApp extends cdk.Construct {
+    public readonly webDistribution: cloudfront.CloudFrontWebDistribution;
+
+    constructor(scope: cdk.Construct, id: string, props: WebAppProps) {
+        super(scope, id);
+
+        const oai = new cloudfront.OriginAccessIdentity(this, "WebHostingOAI", {});
+
+        const cloudfrontProps: any = {
+            originConfigs: [
+                {
+                    s3OriginSource: {
+                        s3BucketSource: props.hostingBucket,
+                        originAccessIdentity: oai,
+                    },
+                    behaviors: [{isDefaultBehavior: true}]
+                }
+            ],
+            errorConfigurations: [
+                {
+                    errorCachingMinTtl: 86400,
+                    errorCode: 403,
+                    responseCode: 200,
+                    responsePagePath: '/index.html',
+                },
+                {
+                    errorCachingMinTtl: 86400,
+                    errorCode: 404,
+                    responseCode: 200,
+                    responsePagePath: '/index.html',
+                }
+            ]
+        }
+
+        this.webDistribution = new cloudfront.CloudFrontWebDistribution(
+            this,
+            'AppHostingDistribution',
+            cloudfrontProps
+        );
+
+        props.hostingBucket.grantRead(oai);
+
+    }
+}
+```
+
+And change index.ts to use our new class.
+
+```ts
+import * as cdk from '@aws-cdk/core';
+import { AssetStorage } from './storage';
+import { WebApp } from './webapp';
+
+export class ApplicationStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+    const storage = new AssetStorage(this, 'Storage');
+    new WebApp(this, 'WebApp', {
+      hostingBucket: storage.hostingBucket
+    });
+  }
+}
+```
+
+After executing 'npx cdk deploy' we need to confirm authorizations. It will take 15 minutes.
+
+Building and Deploying the React Web App
+
+**Demo**
+- Review the build process for the React app
+- Add in an S3 deployment that build the React app using the CDK
 
 
