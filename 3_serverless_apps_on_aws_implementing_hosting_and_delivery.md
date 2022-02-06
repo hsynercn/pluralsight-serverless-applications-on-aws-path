@@ -125,3 +125,49 @@ ApplicationStack.TestOutput = Hey, it worked!
 Also, we can see the results from CloudFormation>Stacks>ApplicationStack>Outputs as "Hey, it worked!".
 
 For our application we are going to create 3 S3 buckets, one them for hosting our web application.
+
+We added a new TS file, storage.ts.
+
+```ts
+import * as cdk from '@aws-cdk/core';
+import * as s3 from '@aws-cdk/aws-s3';
+
+export class AssetStorage extends cdk.Construct {
+    public readonly uploadBucket: s3.IBucket;
+    public readonly hostingBucket: s3.IBucket;
+    public readonly assetBucket: s3.IBucket;
+
+    constructor(scope: cdk.Construct, id: string) {
+        super(scope, id);
+
+        this.uploadBucket = new s3.Bucket(this, "UploadBucket", {
+            encryption: s3.BucketEncryption.S3_MANAGED
+        });
+
+        this.assetBucket = new s3.Bucket(this, "AssetBucket", {
+            encryption: s3.BucketEncryption.S3_MANAGED
+        });
+
+        this.hostingBucket = new s3.Bucket(this, "WebHostingBucket", {
+            encryption: s3.BucketEncryption.S3_MANAGED
+        });
+
+    }
+}
+```
+
+And used new class on index.ts.
+```ts
+import * as cdk from '@aws-cdk/core';
+import {AssetStorage} from './storage' 
+export class ApplicationStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+    new AssetStorage(this, 'Storage');
+  }
+}
+```
+
+Finally, run again **'npx cdk deploy'**. After UPDATE_COMPLETE we need to see three new storage under Resources.  
+
+
