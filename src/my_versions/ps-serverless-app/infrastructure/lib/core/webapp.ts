@@ -8,6 +8,8 @@ import * as cwt from 'cdk-webapp-tools';
 
 interface WebAppProps {
     hostingBucket: s3.IBucket;
+    relativeWebAppPath: string;
+    baseDirectory: string;
 }
 
 export class WebApp extends cdk.Construct {
@@ -25,7 +27,7 @@ export class WebApp extends cdk.Construct {
                         s3BucketSource: props.hostingBucket,
                         originAccessIdentity: oai,
                     },
-                    behaviors: [{isDefaultBehavior: true}]
+                    behaviors: [{ isDefaultBehavior: true }]
                 }
             ],
             errorConfigurations: [
@@ -51,6 +53,20 @@ export class WebApp extends cdk.Construct {
         );
 
         props.hostingBucket.grantRead(oai);
+
+        //deploy web app
+        new cwt.WebAppDeployment(this, 'WebAppDeploy', {
+            baseDirectory: props.baseDirectory,
+            relativeWebAppPath: props.relativeWebAppPath,
+            webDistribution: this.webDistribution,
+            webDistributionPaths: ['/*'],
+            buildCommand: 'yarn build',
+            buildDirectory: 'build',
+            bucket: props.hostingBucket,
+            prune: true
+        });
+
+        new cdk.CfnOutput(this, 'URL',{value: `https://${this.webDistribution.distributionDomainName}`});
 
     }
 }

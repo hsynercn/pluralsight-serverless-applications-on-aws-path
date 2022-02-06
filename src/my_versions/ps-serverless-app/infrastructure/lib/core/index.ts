@@ -7,7 +7,9 @@ export class ApplicationStack extends cdk.Stack {
     super(scope, id, props);
     const storage = new AssetStorage(this, 'Storage');
     new WebApp(this, 'WebApp', {
-      hostingBucket: storage.hostingBucket
+      hostingBucket: storage.hostingBucket,
+      baseDirectory: '../',
+      relativeWebAppPath: 'webapp',
     });
   }
 }
