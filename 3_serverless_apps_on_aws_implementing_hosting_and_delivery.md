@@ -262,4 +262,6 @@ Building and Deploying the React Web App
 - Review the build process for the React app
 - Add in an S3 deployment that build the React app using the CDK
 
+**Important** Execute set NODE_OPTIONS=--openssl-legacy-provider to run 'yarn build'.
+
 
