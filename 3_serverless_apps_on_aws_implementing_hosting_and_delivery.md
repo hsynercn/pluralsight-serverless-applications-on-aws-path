@@ -264,4 +264,11 @@ Building and Deploying the React Web App
 
 **Important** Execute set NODE_OPTIONS=--openssl-legacy-provider to run 'yarn build'.
 
+Next
 
+Core Learning Path Concepts
+- Hosting
+- **Serverless API's and Compute**
+- Event-based Architectures
+- Authentication and Authorization
+- Deployment and Production Support
