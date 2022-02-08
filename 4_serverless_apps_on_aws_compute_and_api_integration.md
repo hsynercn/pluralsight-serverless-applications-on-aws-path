@@ -56,7 +56,7 @@ AWS Lambda Deep Dive
     - Python
     - Ruby
     - Java
-    - .Net Core
+    - . Net Core
     - Custom Runtime
 - We can use Lambda Layers for specific needs, like using a locally installed image manipulation tool 
     - Providing additional native or platform libraries
