@@ -215,6 +215,52 @@ AWS Service Integrations in Step Functions
 
 Working With Step Functions
 
+**Demo**
+- Create a basic Step Function
+- Testing Step Function executions n the console
+- Deploying and testing an integrated Step Function
+
+1. Go to step functions get started
+2. Create a function with default settings
+3. Monitor the flow
+4. Go to Create state machine, Run a sample project with Orchestrate lambda Functions
+
 ## 4.3 Amazon API Gateway
+
+Common API Needs
+- Authentication, authorization
+- Caching
+    - In some cases we may want to cache results and prevent going to service every single time
+- Disparate Sources
+- Audit Trail
+- Throttling
+- App Firewall
+
+**Amazon API Gateway**: Amazon API Gateway is an AWS service for creating, publishing, maintaining, monitoring, and securing REST, HTTP, and WebSocket APIs at any scale. API developers can create APIs that access AWS or other web services, as well as data stored in the AWS Cloud.
+
+Supported API Types
+- REST API
+- HTTP API
+- WebSocket API
+
+|REST API|HTTP API|
+|---|---|
+|Usage plans and API keys|Supports OpenID Connect/OAuth 2.0, JSON web tokens|
+|API caching|Supports default stage and route configuration|
+|Request body transformation|Supports private Application Load Balancers and Cloud Map|
+|Request and response validation|$1.00 for first 1 million calls|
+|Canary release deployment||
+|Support Web Application Firewall||
+|$3.50 for first 1 million calls||
+
+For serverless applications, use an HTTPS API unless you have a specific need you can't meet using it.
+
+Working with API Gateway
+
+**Demo**
+- Integrating a Lambda function with API Gateway
+- Testing an API Gateway API
+
+
 
 
