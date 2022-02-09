@@ -79,9 +79,141 @@ Key Compute Differences
 
 Working With AWS Lambda
 
+**Demo**
+- Create a Lambda function in the console
+- Modifying the function configuration
+- Deploying changes to function code
+- Integrating the function with DynamoDB
 
+1. Go to AWS console Lambda
+2. Create function
+3. Search on "mobile on "Blueprints and select simple-mobile-backend
+4. Name: sampleFunction, Role Name:sampleFunctionRole
+5. Create function
+6. Go to function's configuration, we can see function has two resources
+    - Amazon CloudWatch Logs
+    - Amazon DynamoDB
+7. Go to DynamoDB
+8. Create a new table
+9. Table name:SampleTable, Primary key: PK, unselect: Use default settings
+10. Go back to sampleFunction, Edit environmental variables
+11. Add variable Key:DYNAMO_DB_TABLE Value:SampleTable
+
+At his point we can edit the function code from browser. Changed payload.tableName and enabled console.log lines.
+
+```js
+const AWS = require('aws-sdk');
+const dynamo = new AWS.DynamoDB.DocumentClient();
+/**
+ * Provide an event that contains the following keys:
+ *
+ *   - operation: one of the operations in the switch statement below
+ *   - tableName: required for operations that interact with DynamoDB
+ *   - payload: a parameter to pass to the operation being performed
+ */
+exports.handler = async (event) => {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+
+    const operation = event.operation;
+    const payload = event.payload;
+    
+    payload.TableName = process.env.DYNAMO_DB_TABLE;
+    
+    switch (operation) {
+        case 'create':
+            return await dynamo.put(payload).promise();
+        case 'read':
+            return await dynamo.get(payload).promise();
+        case 'update':
+            return await dynamo.update(payload).promise();
+        case 'delete':
+            return await dynamo.delete(payload).promise();
+        case 'list':
+            return await dynamo.scan(payload).promise();
+        case 'echo':
+            return payload;
+        case 'ping':
+            return 'pong';
+        default:
+            throw new Error(`Unrecognized operation "${operation}"`);
+    }
+};
+```
+
+We can test new code with a new test event. Name it "CreateEvent", we are creating a new record.
+
+```json
+{
+    "operation": "create",
+    "payload": {
+        "Item": {
+            "PK": "id1",
+            "FirstName": "David",
+            "LastName": "Tucker"
+        }
+    }
+}
+```
+
+After executing test we can check DynamoDB and see our new record on table.
 
 ## 4.2. AWS Step Functions
+
+Workflow
+1. Check File
+2. Get Metadata
+- Get Thumbnail
+- Extract Text
+3. Insert into Database
+
+Alert User of Failure: Alert user and clean db
+
+**AWS Step Function**: Step Functions is a serverless orchestration service that lets you combine AWS Lambda functions and other AWS services to build business-critical applications.
+
+Terminology
+- **State Machine**: Entire workflow.
+- **State**: Individual functions, elements.
+- **Task**: Entire input, output of individual element.
+- **Transition**: Switch one state to another state.
+
+Workflow Types for Step Functions
+|Standard|Express|
+|---|---|
+|Can last up to one year|Can last up to 5 minutes|
+|Priced per state transition|Priced per execution including duration and memory consumption|
+|Asynchronous execution|Can be either Asynchronous or Synchronous|
+|Workflows executed exactly once|Asynchronous - executed at least once|
+||Synchronous - executed at most once|
+|Supports all service integrations and patterns|Does not support all async integration models|
+
+Why we use Express?
+
+**For shorter workflows, express workflows can provide significant cost savings.**
+
+Creating Step Functions
+- Step Functions are defined using Amazon State Languages
+- There are pre-defined task types:
+    - Task
+    - Pass
+    - Choice
+    - Wait
+    - Parallel, Map
+    - Succeed, Fail
+- Each task can define how its input and output values will be handled
+
+AWS Service Integrations in Step Functions
+- Lambda
+- Batch
+- DynamoDB
+- ECS, Fargate, and EKS
+- SNS and SQS
+- Glue, EMR, and Athena
+- SageMaker
+- CodeBuild
+- API Gateway
+- Step Functions
+
+Working With Step Functions
 
 ## 4.3 Amazon API Gateway
 
