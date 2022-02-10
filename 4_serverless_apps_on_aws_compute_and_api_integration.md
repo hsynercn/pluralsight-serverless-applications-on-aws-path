@@ -261,6 +261,76 @@ Working with API Gateway
 - Integrating a Lambda function with API Gateway
 - Testing an API Gateway API
 
+1. Go to AWS Lambda create new function from Blueprint 'microservice-http-endpoint'
+2. Function name: sampleMicroservice, Role name: sampleMicroserviceRole
+3. Select Create an API and select HTTP API, security Open
+4. Create function
+5. Get more suitable code for HTTP API
 
+```js
+const AWS = require('aws-sdk');
+
+const dynamo = new AWS.DynamoDB.DocumentClient();
+
+/**
+ * Demonstrates a simple HTTP endpoint using API Gateway. You have full
+ * access to the request and response payload, including headers and
+ * status code.
+ *
+ * To scan a DynamoDB table, make a GET request with the TableName as a
+ * query string parameter. To put, update, or delete an item, make a POST,
+ * PUT, or DELETE request respectively, passing in the payload to the
+ * DynamoDB API as a JSON body.
+ */
+exports.handler = async (event, context) => {
+    console.log('Received event:', JSON.stringify(event, null, 2));
+
+    let body;
+    let statusCode = '200';
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+    
+    const TableName = process.env.DYNAMO_DB_TABLE;
+    
+    let dynamoDBParams;
+    if(event.body) {
+        dynamoDBParams = JSON.parse(event.body);
+        dynamoDBParams.TableName = TableName;
+    }
+
+    try {
+        switch (event.requestContext.http.method) {
+            case 'DELETE':
+                body = await dynamo.delete(dynamoDBParams).promise();
+                break;
+            case 'GET':
+                body = await dynamo.scan({ TableName }).promise();
+                break;
+            case 'POST':
+                body = await dynamo.put(dynamoDBParams).promise();
+                break;
+            case 'PUT':
+                body = await dynamo.update(dynamoDBParams).promise();
+                break;
+            default:
+                throw new Error(`Unsupported method "${event.requestContext.http.method}"`);
+        }
+    } catch (err) {
+        statusCode = '400';
+        body = err.message;
+    } finally {
+        body = JSON.stringify(body);
+    }
+
+    return {
+        statusCode,
+        body,
+        headers,
+    };
+};
+```
+6. Add environment variable, Key:DYNAMO_DB_TABLE, Value:SampleTable
+7. Install Postman and create a new GET request with API Gateway URL, send request and expect SampleTable records
 
 
