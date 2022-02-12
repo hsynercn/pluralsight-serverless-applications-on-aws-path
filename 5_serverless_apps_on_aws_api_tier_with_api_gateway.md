@@ -6,6 +6,30 @@ What We will Be Doing
 - AWS Lambda
 - API Gateway
 
+Application Services
+- Documents, DynamoDB
+- Comments, DynamoDB
+- Moderation, SQS
+- Users, Cognito
+- Notifications, No Data Storage
+
+In This Course
+- Creating comments service
+- Creating moderation service, but it will not be fully built out
+- Exploring DynamoDB design approach
+- reviewing framework for routing with AWS Lambda
+
+Setting up the Code Base
+
+**Demo**
+- Creating the directory structure for services
+- Creating a directory for common code that will be used across services
+
+Related starting repo is https://github.com/davidtucker/ps-serverless-app/tree/p2 ending is p3.
+
+
+
+
 
 ## 5.2. Integrating with API Gateway
 
