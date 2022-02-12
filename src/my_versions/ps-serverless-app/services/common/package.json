@@ -1,0 +1,11 @@
+{
+    "name": "@ps-serverless/services-common",
+    "version": "1.0.0",
+    "main": "index.js",
+    "description": "description",
+    "dependencies": {
+        "aws-xray-sdk": "3.2.0",
+        "aws-sdk": "^2.1073.0",
+        "ksuid": "^2.0.0"
+    }
+}
