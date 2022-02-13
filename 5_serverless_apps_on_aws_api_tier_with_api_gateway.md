@@ -27,8 +27,9 @@ Setting up the Code Base
 
 Related starting repo is https://github.com/davidtucker/ps-serverless-app/tree/p2 ending is p3.
 
-
-
+1. Use 'service' folder. 
+2. Add a common folder to store common logic between services and add a package.json file. Add an index.js file.
+3. Add a comment folder, add a package.json file. Add an index.js file.
 
 
 ## 5.2. Integrating with API Gateway
