@@ -94,3 +94,17 @@ Primary key is composed of a partition key called Name and a sort key called Age
 
 If we want to access date with Company and Position we can use secondary indexes. They improve data accessibility of items in our table.
 
+|Local Secondary Index|Global Secondary Index|
+|---|---|
+|Same Partition but different Sort key|Different Partition and Sort key|
+|Scoped to base table partitions|Spans across all partitions|
+|Shares throughput settings and pricing|Own throughput settings and pricing|
+|5 indexes maximum|20 indexes maximum|
+
+A **projection** is the set of attributes that is copied from a table into a secondary index.
+
+**Attribute Projection Options**
+- **KEYS ONLY**: Only primary keys
+- **INCLUDE**: Includes selected attributes.
+- **ALL**: All attributes in an item.
+
