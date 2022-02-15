@@ -108,3 +108,38 @@ A **projection** is the set of attributes that is copied from a table into a sec
 - **INCLUDE**: Includes selected attributes.
 - **ALL**: All attributes in an item.
 
+Master Replication
+
+DynamoDB offers functionality to replicate table items between multiple tables between regions.
+
+- Collections o tables
+- Replicates items to all tables
+- Ideal for multi-region applications
+
+Requirements
+- Same write capacity is required for all tables
+- Must have the same key
+- Must have the same primary key
+- Tables must be empty
+
+Additional DynamoDB Features
+
+Encryption
+- Encryption is enabled by default
+    - At-rest
+    - In-transit
+- Encrypts DynamoDB streams
+- Encrypts Local and Global secondary indices
+
+**Hot Partition**: A single partition goes under heavy traffic.
+
+Partition key recommendations:
+- Use combinations of known information
+- Querying data is difficult with randomly generated partition keys
+
+Sort key recommendations:
+- Data can be queried with:
+    - starts-with
+    - between
+    - '>'
+    - '<'
