@@ -129,6 +129,18 @@ export class AppDatabase extends cdk.Construct {
 }
 ```
 
+Every item in DynamoDB must have a unique primary key. The primary key is the base table index. A primary key must have a partition key and can optionally have a range key (also called a sort key). Within a partition, items are ordered by range key. Accessing items using a partition key is fast.
+
+Secondary indexes allow you to query the table using an alternative key. **A Local Secondary Index (LSI)** has the same partition key as the primary key (index), but a different range key. The way to think about an LSI is that its the same data as the primary index (key), just ordered by a different attribute.
+
+**A Global Secondary Index (GSI)** has a different partition key to primary key and is therefore a different set of data.
+
+One of the important differences between LSI and GSI is that an LSI takes its throughput capacity from the base table, where as you have purchase GSI throughput capacity separately. Put another way, an LSI cost you nothing and a GSI incurs extra cost over your base table.
+
+Usually:
+
+**PRIMARY KEY** = **PARTITION KEY** + **RANGE KEY**
+
 
 
 ## 5.2. Integrating with API Gateway
