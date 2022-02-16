@@ -143,6 +143,17 @@ Usually:
 
 **PRIMARY KEY** = **PARTITION KEY** + **RANGE KEY**
 
+Using Lambda Micro
+- It is a specific framework.
+
+**Demo**
+- Importing needed packages
+- Configuring routes
+- Implementing needed logic per route
+
+
+
+
 
 ## 5.2. Integrating with API Gateway
 
