@@ -42,8 +42,8 @@ Amazon DynamoDB Concepts
 - Enables different data modeling approaches over relational databases
 
 Getting Data From DynamoDB
-- Query
-- Scan, this is example
+- Query, this is the efficient way
+- Scan, has to read all the data, they are expensive
 
 Working with DynamoDB
 
@@ -59,7 +59,7 @@ Primary Key
 - When using a sort key, you can sort or query by values as well as beginning characters
 
 Enable the Data Model
-- Sortable ID's
+- Sortable ID's, we are going to use a KSUID for this
 - Global Secondary Index
 
 
@@ -129,6 +129,8 @@ export class AppDatabase extends cdk.Construct {
 }
 ```
 
+**We are using flipped keys for GSI partition key and sort key.**
+
 Every item in DynamoDB must have a unique primary key. The primary key is the base table index. A primary key must have a partition key and can optionally have a range key (also called a sort key). Within a partition, items are ordered by range key. Accessing items using a partition key is fast.
 
 Secondary indexes allow you to query the table using an alternative key. **A Local Secondary Index (LSI)** has the same partition key as the primary key (index), but a different range key. The way to think about an LSI is that its the same data as the primary index (key), just ordered by a different attribute.
@@ -140,7 +142,6 @@ One of the important differences between LSI and GSI is that an LSI takes its th
 Usually:
 
 **PRIMARY KEY** = **PARTITION KEY** + **RANGE KEY**
-
 
 
 ## 5.2. Integrating with API Gateway
