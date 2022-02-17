@@ -158,9 +158,11 @@ Using Lambda Micro
 - Creating a reusable construct for service definition
 - Verifying deployment of Lambda functions
 
+*Check code for these parts.
 
-
-
+Validation
+- Reviewing JSON schema
+- Adding in input validation for comments service using Lambda Micro
 
 
 ## 5.2. Integrating with API Gateway
