@@ -164,6 +164,21 @@ Validation
 - Reviewing JSON schema
 - Adding in input validation for comments service using Lambda Micro
 
+We can add JSON checking schemas for validation. Check https://json-schema.org/learn/getting-started-step-by-step.html for more info.
+
+Basic JSON schema example.
+```json
+{
+    "type": "object",
+    "properties": {
+        "Comment": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false
+}
+```
+
 
 ## 5.2. Integrating with API Gateway
 

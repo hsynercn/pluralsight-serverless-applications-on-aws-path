@@ -1,9 +1,17 @@
 import {
     createRouter,
     RouterType,
-    Matcher
+    Matcher,
+    validatePathVariables,
+    validateBodyJSONVariables
 } from 'lambda-micro';
 import { AWSClients, generateID } from '../common';
+
+const schemas = {
+    createComment: require('./schemas/createComment.json'),
+    deleteComment: require('./schemas/deleteComment.json'),
+    getComments: require('./schemas/getComments.json'),
+}
 
 //Utilize the DynamoDB Document Client
 const dynamoDB = AWSClients.dynamoDB();
@@ -57,16 +65,19 @@ const router = createRouter(RouterType.HTTP_API_V2);
 
 router.add(
     Matcher.HttpApiV2('GET', '/comments/(:docid)'),
+    validatePathVariables(schemas.getComments),
     getAllCommentsForDocument,
 );
 
 router.add(
     Matcher.HttpApiV2('GET', '/comments/(:docid)'),
+    validateBodyJSONVariables(schemas.createComment),
     createComment,
 );
 
 router.add(
     Matcher.HttpApiV2('GET', '/comments/(:docid)/(:commentid)'),
+    validatePathVariables(schemas.deleteComment),
     deleteComment,
 );
 
