@@ -3,7 +3,7 @@
  * By having all of these in one locations, it will be easier to implement tracing for AWS service calls. 
  */
 
-import * as AWS from 'aws-sed';
+import * as AWS from 'aws-sdk';
 
 let _dynamoDB;
 
