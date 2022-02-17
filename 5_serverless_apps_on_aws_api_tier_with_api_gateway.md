@@ -144,12 +144,20 @@ Usually:
 **PRIMARY KEY** = **PARTITION KEY** + **RANGE KEY**
 
 Using Lambda Micro
-- It is a specific framework.
+- It is a specific framework for tutorial, provides routing in backend method.
 
 **Demo**
 - Importing needed packages
 - Configuring routes
 - Implementing needed logic per route
+
+**DEPLOYING LAMBDA SERVICES**
+
+**Demo**
+- Utilize the CDK for packaging and deployment of the Lambda function
+- Creating a reusable construct for service definition
+- Verifying deployment of Lambda functions
+
 
 
 
