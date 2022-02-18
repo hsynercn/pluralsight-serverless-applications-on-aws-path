@@ -1,7 +1,7 @@
-import * as mock from './mockData';
 import axios from 'axios';
+import * as mock from './mockData';
 
-const SERVICES_HOST = window.appConfig.epiEndpoint;
+const SERVICES_HOST = window.appConfig.apiEndpoint;
 
 /* eslint-disable no-console */
 
@@ -66,13 +66,13 @@ export const createComment = async (id, content) => {
   const body = {
     Comment: content,
   };
-  const result = await axios.post(`${SERVICES_HOST}/comments/${id}`, body);
-  console.log(`Result: ${JSON.stringify(result)}`);
+  const results = await axios.post(`${SERVICES_HOST}/comments/${id}`, body);
+  console.log(`Results: ${JSON.stringify(results)}`);
 };
 
 export const getCommentsForDocument = async (id) => {
   const results = await axios.get(`${SERVICES_HOST}/comments/${id}`);
-  const sortedResults = results.data.sort((a,b) => new Date(b.DateAdded) - new Date(a.DateAdded));
+  const sortedResults = results.data.sort((a, b) => new Date(b.DateAdded) - new Date(a.DateAdded));
   return sortedResults;
 };
 
