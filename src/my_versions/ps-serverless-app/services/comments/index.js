@@ -70,13 +70,13 @@ router.add(
 );
 
 router.add(
-    Matcher.HttpApiV2('GET', '/comments/(:docid)'),
+    Matcher.HttpApiV2('POST', '/comments/(:docid)'),
     validateBodyJSONVariables(schemas.createComment),
     createComment,
 );
 
 router.add(
-    Matcher.HttpApiV2('GET', '/comments/(:docid)/(:commentid)'),
+    Matcher.HttpApiV2('DELETE', '/comments/(:docid)/(:commentid)'),
     validatePathVariables(schemas.deleteComment),
     deleteComment,
 );

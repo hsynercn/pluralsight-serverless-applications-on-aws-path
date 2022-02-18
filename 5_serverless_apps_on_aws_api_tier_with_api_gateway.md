@@ -179,7 +179,15 @@ Basic JSON schema example.
 }
 ```
 
-
 ## 5.2. Integrating with API Gateway
+
+Creating an HTTP API
+
+Demo
+- Creating an HTTP API that connects to the comments service
+- Configuring CORS for the API
+- Deploying the API
+
+
 
 
