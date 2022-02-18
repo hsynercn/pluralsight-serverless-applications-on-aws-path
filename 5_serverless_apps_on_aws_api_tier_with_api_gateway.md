@@ -188,6 +188,10 @@ Demo
 - Configuring CORS for the API
 - Deploying the API
 
+Configuring the Web App
+- Creating a config file for the web app that contains the API endpoint
+- reading the config file at runtime
+
 
 
 
