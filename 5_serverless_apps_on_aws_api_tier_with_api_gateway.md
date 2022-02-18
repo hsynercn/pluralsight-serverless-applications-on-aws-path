@@ -190,7 +190,11 @@ Demo
 
 Configuring the Web App
 - Creating a config file for the web app that contains the API endpoint
-- reading the config file at runtime
+- Reading the config file at runtime
+
+Calling the API from Web App
+- Integrating the comment service into the web application
+- Verifying the integration
 
 
 
