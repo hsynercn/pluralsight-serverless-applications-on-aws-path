@@ -196,6 +196,12 @@ Calling the API from Web App
 - Integrating the comment service into the web application
 - Verifying the integration
 
+Creating the Moderation Service
+
+**Demo**
+- Creating an SQS integration with API Gateway
+- Implementing the moderation service with the web app
+
 
 
 
