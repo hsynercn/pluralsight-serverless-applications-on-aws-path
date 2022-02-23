@@ -82,6 +82,12 @@ export class ApplicationsAPI extends cdk.Construct {
             timeoutInMillis: 10000,
         });
 
+        new apigw.CfnRoute(this, 'ModerateRoute', {
+            apiId: this.httpApi.apiId,
+            routeKey: 'POST /moderate',
+            target: `integrations/${sqsIntegration.ref}`,
+        });
+
         new cdk.CfnOutput(this, 'URL', {
             value: this.httpApi.apiEndpoint
         });
