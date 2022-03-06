@@ -53,7 +53,7 @@ Demo
 
 Steps
 1. Crete a S3 bucket, "eventbased-testing-hsynerc", use default values
-2. Create a lambda, use blueprint, "eventbased-testing-function", log the event
+2. Create a lambda, use blueprint 'hello-world', "eventbased-testing-function", log the event
 ```js
 exports.handler = async (event, context) => {
     console.log('Received event:', JSON.stringify(event, null, 2));
@@ -69,4 +69,25 @@ exports.handler = async (event, context) => {
     - Add PutObject
     - Check Specific buckets(s) by name
     - Select "eventbased-testing-hsynerc" function for target
+
+**Event-based Fundamentals**
+
+Benefits of an Event-based Architecture
+- Fault Tolerance
+- Modularity
+- Scalability
+
+Fault Tolerance Example
+
+- For example for our Order Service we can add a SQS Queue for user orders. Even if we lost the Order Service we can still accumulate orders in SQS Queue and when Order Service is restored we can process these orders.
+
+Modularity Example
+
+- We can use microservices for different responsibilities, for example for our Fulfillment, Analytics, and Notifications business subjects we can use separated microservices, and we can add buffering queues for Fulfillment, and Analytics services. We can use separated SNS topics for Fulfillment and Analytics services. Furthermore, we can use an EventBridge event for Notifications service use cases from other services.
+
+Scalability Example
+
+- Scaling up the whole service set is risky, if we fail all services go down. If we use lambda for separated microservices we can get rid of most of the scalability problems.
+
+
 
