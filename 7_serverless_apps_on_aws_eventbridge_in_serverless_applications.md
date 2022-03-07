@@ -41,3 +41,9 @@ Additional AWS Service Clients
 - Amazon Simple Email Service (SES)
 - Amazon EventBridge
 
+**Creating the Document Service**
+
+Demo
+- Creating the Documents service
+- Reviewing the Lambda Micro capabilities for parsing form data
+
